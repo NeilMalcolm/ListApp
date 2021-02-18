@@ -17,12 +17,14 @@ steps:
 - script: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 5_12_0
   displayName: 'Select the Xamarin SDK version'
   enabled: false
+  
 - task: NuGetToolInstaller@1
-
 
 - task: NuGetCommand@2
   inputs:
-    restoreSolution: '**/*.sln'
+    command: 'pack'
+    packagesToPack: '**/*.csproj'
+    versioningScheme: 'off'
 
 - task: XamarinAndroid@1
   inputs:
@@ -36,3 +38,17 @@ steps:
     configuration: 'Release'
     buildForSimulator: true
     packageApp: false
+
+- task: VSTest@2
+  inputs:
+    testSelector: 'testAssemblies'
+    testAssemblyVer2: |
+      **\*test*.dll
+      !**\*TestAdapter.dll
+      !**\obj\**
+    searchFolder: '$(System.DefaultWorkingDirectory)'
+
+- task: PublishTestResults@2
+  inputs:
+    testResultsFormat: 'VSTest'
+    testResultsFiles: '**/TEST-*.xml'
