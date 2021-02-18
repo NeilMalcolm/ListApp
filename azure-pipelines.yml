@@ -22,9 +22,7 @@ steps:
 
 - task: NuGetCommand@2
   inputs:
-    command: 'pack'
     packagesToPack: '**/*.csproj'
-    versioningScheme: 'off'
 
 - task: XamarinAndroid@1
   inputs:
@@ -39,16 +37,8 @@ steps:
     buildForSimulator: true
     packageApp: false
 
-- task: VSTest@2
+- task: DotNetCoreCLI@2
   inputs:
-    testSelector: 'testAssemblies'
-    testAssemblyVer2: |
-      **\*test*.dll
-      !**\*TestAdapter.dll
-      !**\obj\**
-    searchFolder: '$(System.DefaultWorkingDirectory)'
-
-- task: PublishTestResults@2
-  inputs:
-    testResultsFormat: 'VSTest'
-    testResultsFiles: '**/TEST-*.xml'
+    command: 'test'
+    projects: '**/ListApp.Tests.csproj'
+    arguments: '--configuration $(buildConfiguration) --collect "Code coverage"'
