@@ -24,18 +24,18 @@ steps:
   inputs:
     packagesToPack: '**/*.csproj'
 
-- task: XamarinAndroid@1
-  inputs:
-    projectFile: '**/*droid*.csproj'
-    outputDirectory: '$(outputDirectory)'
-    configuration: '$(buildConfiguration)'
-
 - task: XamariniOS@2
   inputs:
     solutionFile: '**/*.sln'
     configuration: 'Release'
     buildForSimulator: true
     packageApp: false
+
+- task: XamarinAndroid@1
+  inputs:
+    projectFile: '**/*droid*.csproj'
+    outputDirectory: '$(outputDirectory)'
+    configuration: '$(buildConfiguration)'    
 
 - task: DotNetCoreCLI@2
   inputs:
