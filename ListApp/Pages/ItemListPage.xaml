@@ -1,0 +1,65 @@
+﻿<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:models="clr-namespace:ListApp.Models"
+             xmlns:system="clr-namespace:System;assembly=netstandard"
+             xmlns:pages="clr-namespace:ListApp.Pages"
+             xmlns:views="clr-namespace:ListApp.Views"
+             x:Class="ListApp.Pages.ItemListPage">
+    <Shell.TitleView>
+        <views:DefaultNavigationTitleView BindingContext="{Binding .}"/>
+    </Shell.TitleView>
+    <ContentPage.ToolbarItems>
+        <ToolbarItem IconImageSource="{AppThemeBinding Light=add_light.png,
+                                                       Dark=add_dark.png}"
+                     Command="{Binding GoToAddItemCommand}"/>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+        <StackLayout>
+            <CollectionView x:Name="PageCollectionView"
+                            ItemsSource="{Binding AllItemLists}"
+                            VerticalOptions="FillAndExpand"
+                            HorizontalOptions="FillAndExpand">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout ItemSpacing="5" 
+                                       Orientation="Vertical"/>
+                </CollectionView.ItemsLayout>
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="models:ItemList">
+                        <StackLayout Padding="16, 8"
+                                     Orientation="Horizontal">
+                            <StackLayout.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding Source={x:Reference PageCollectionView}, 
+                                                                        Path=BindingContext.GoToListCommand}"
+                                                      CommandParameter="{Binding .}"/>
+                            </StackLayout.GestureRecognizers>
+                            <Label>
+                                <Label.FormattedText>
+                                    <FormattedString>
+                                        <Span Text="{Binding DisplayTitle}"
+                                              Style="{StaticResource TitleSpanStyle}"/>
+                                        <Span Text="{x:Static system:Environment.NewLine}" LineHeight="2.5"/>
+                                        <Span Text="{Binding DateCreated,StringFormat='{0:dddd, dd MMM yy}'}"
+                                              Style="{StaticResource SubtitleSpanStyle}"/>
+                                    </FormattedString>
+                                </Label.FormattedText>
+                            </Label>
+                            <Label Text="≡"
+                                   FontSize="25"
+                                   FontAttributes="Bold"
+                                   TextColor="LightGray"
+                                   HorizontalOptions="EndAndExpand"
+                                   VerticalOptions="Center"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.EmptyView>
+                    <ContentView>
+                        <Label Text="You don't have any lists, try adding one!"
+                               HorizontalOptions="Center"
+                               VerticalOptions="Center"/>
+                    </ContentView>
+                </CollectionView.EmptyView>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</pages:BasePage>

@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<resources>
+
+  <style name="MainTheme" parent="MainTheme.Base">
+      <item name="android:statusBarColor">#FFFFFF</item>
+  </style>
+
+    <style name="DarkTheme" parent="MainTheme.Base">
+        <item name="android:statusBarColor">#000000</item>
+    </style>
+</resources>

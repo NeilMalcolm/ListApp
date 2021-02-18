@@ -1,0 +1,12 @@
+﻿<ContentView xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ListApp.Views.DefaultNavigationTitleView"
+             CompressedLayout.IsHeadless="True">
+    <ContentView.Content>
+        <Label Text="{Binding Title}"
+               Style="{StaticResource TitleLabelStyle}"
+               FontAttributes="Bold"
+               HorizontalOptions="Center"
+               VerticalOptions="Center"/>
+    </ContentView.Content>
+</ContentView>

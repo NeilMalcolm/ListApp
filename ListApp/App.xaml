@@ -1,0 +1,224 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Application xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ListApp.App">
+    <!--
+        Define global resources and styles here, that apply to all pages in your app.
+    -->
+    <Application.Resources>
+        <ResourceDictionary>
+
+            <x:Int32 x:Key="DefaultTextSize">12</x:Int32>
+            <x:Int32 x:Key="DefaultTitleSize">18</x:Int32>
+            <x:Int32 x:Key="SmallTextSize">10</x:Int32>
+
+            <!-- 
+            
+                Colours
+            
+            -->
+
+            <!-- Light Mode -->
+            <Color x:Key="LightModeStatusBarColor">#F8F8F8</Color>
+            <Color x:Key="LightModePrimaryColor">#F8F8F8</Color>
+            <Color x:Key="LightModeBackgroundColor">#F8F8F8</Color>
+            <Color x:Key="LightModeBackgroundAltColor">white</Color>
+            <Color x:Key="LightModeShellBackgroundColor">#F8F8F8</Color>
+            <Color x:Key="LightModeTabBarBackgroundColor">#F8F8F8</Color>
+
+            <Color x:Key="LightModeShellForegroundColor">Black</Color>
+            <Color x:Key="LightModeTitleColor">Black</Color>
+            <Color x:Key="LightModeTabBarForegroundColor">Black</Color>
+
+            <Color x:Key="LightModeShellDisabledColor">LightGray</Color>
+            <Color x:Key="LightModeShellUnselectedColor">Gray</Color>
+            <Color x:Key="LightModeTabBarUnselectedColor">Gray</Color>
+
+            <Color x:Key="LightAccentColor">#428bff</Color>
+            <Color x:Key="LightModeTextColor">Black</Color>
+            <Color x:Key="LightModeSubtitleColor">Gray</Color>
+            <Color x:Key="LightModeUntitledTitleColor">Gray</Color>
+
+            <!-- Dark Mode -->
+            <Color x:Key="DarkModeStatusBarColor">Black</Color>
+            <Color x:Key="DarkModePrimaryColor">Black</Color>
+            <Color x:Key="DarkModeBackgroundColor">Black</Color>
+            <Color x:Key="DarkModeBackgroundAltColor">#3E3E3E</Color>
+            <Color x:Key="DarkModeShellBackgroundColor">Black</Color>
+            <Color x:Key="DarkModeTabBarBackgroundColor">Black</Color>
+
+            <Color x:Key="DarkModeShellForegroundColor">#D8D8D8</Color>
+            <Color x:Key="DarkModeTitleColor">#D8D8D8</Color>
+            <Color x:Key="DarkModeTabBarForegroundColor">#D8D8D8</Color>
+
+            <Color x:Key="DarkModeShellDisabledColor">Black</Color>
+            <Color x:Key="DarkModeShellUnselectedColor">#959595</Color>
+            <Color x:Key="DarkModeTabBarUnselectedColor">#959595</Color>
+
+            <Color x:Key="DarkAccentColor">#1e64d4</Color>
+            <Color x:Key="DarkModeTextColor">#D8D8D8</Color>
+            <Color x:Key="DarkModeSubtitleColor">#959595</Color>
+            <Color x:Key="DarkModeUntitledTitleColor">#959595</Color>
+
+            <!-- 
+            
+                  Styles 
+            -->
+            
+            <!-- Shell Style -->
+            
+            <Style x:Key="BaseStyle" 
+                   TargetType="Element">
+                <Setter Property="Shell.BackgroundColor" 
+                        Value="{AppThemeBinding Light={StaticResource LightModeShellBackgroundColor},
+                                                Dark={StaticResource DarkModeShellBackgroundColor}}" />
+                
+                <Setter Property="Shell.ForegroundColor" 
+                        Value="{AppThemeBinding Light={StaticResource LightModeShellForegroundColor},
+                                                Dark={StaticResource DarkModeShellForegroundColor}}" />
+                
+                <Setter Property="Shell.TitleColor" 
+                        Value="{AppThemeBinding Light={StaticResource LightModeTitleColor},
+                                                Dark={StaticResource DarkModeTitleColor}}" />
+
+                <Setter Property="Shell.DisabledColor" 
+                        Value="{AppThemeBinding Light={StaticResource LightModeShellDisabledColor},
+                                                Dark={StaticResource DarkModeShellDisabledColor}}" />
+
+                <Setter Property="Shell.UnselectedColor" 
+                        Value="{AppThemeBinding Light={StaticResource LightModeShellUnselectedColor},
+                                                Dark={StaticResource DarkModeShellUnselectedColor}}" />
+
+                <Setter Property="Shell.TabBarBackgroundColor" 
+                        Value="{AppThemeBinding Light={StaticResource LightModeTabBarBackgroundColor},
+                                                Dark={StaticResource DarkModeTabBarBackgroundColor}}" />
+
+                <Setter Property="Shell.TabBarForegroundColor" 
+                        Value="{AppThemeBinding Light={StaticResource LightModeTabBarForegroundColor},
+                                                Dark={StaticResource DarkModeTabBarForegroundColor}}"/>
+
+                <Setter Property="Shell.TabBarUnselectedColor" 
+                        Value="{AppThemeBinding Light={StaticResource LightModeShellUnselectedColor},
+                                                Dark={StaticResource DarkModeShellUnselectedColor}}"/>
+
+                <Setter Property="Shell.TabBarTitleColor" 
+                        Value="{AppThemeBinding Light={StaticResource LightModeTitleColor},
+                                                Dark={StaticResource DarkModeTitleColor}}"/>
+            </Style>
+            <Style TargetType="TabBar" 
+                   BasedOn="{StaticResource BaseStyle}" />
+            <Style TargetType="FlyoutItem" 
+                   BasedOn="{StaticResource BaseStyle}" />
+
+            <!-- Label Style -->
+
+            <Style x:Key="BaseLabelStyle" 
+                   TargetType="Label">
+                <Setter Property="TextColor"
+                        Value="{AppThemeBinding Light={StaticResource LightModeTextColor},
+                                                Dark={StaticResource DarkModeTextColor}}"/>
+                <Setter Property="FontSize"
+                        Value="{StaticResource DefaultTextSize}"/>
+            </Style>
+            
+
+
+            <Style x:Key="TitleLabelStyle"
+                   TargetType="Label">
+                <Setter Property="TextColor"
+                        Value="{AppThemeBinding Light={StaticResource LightModeTitleColor},
+                                                Dark={StaticResource DarkModeTitleColor}}"/>
+                <Setter Property="FontSize"
+                        Value="{StaticResource DefaultTitleSize}"/>
+            </Style>
+
+
+            <!-- Span Style-->
+
+            <Style x:Key="BaseSpanStyle" 
+                   TargetType="Span">
+                <Setter Property="TextColor"
+                        Value="{AppThemeBinding Light={StaticResource LightModeTextColor},
+                                                Dark={StaticResource DarkModeTextColor}}"/>
+                <Setter Property="FontSize"
+                        Value="{StaticResource DefaultTextSize}"/>
+            </Style>
+
+            <Style x:Key="TitleSpanStyle" 
+                   TargetType="Span"
+                   BasedOn="{StaticResource BaseSpanStyle}">
+                <Setter Property="FontSize"
+                        Value="{StaticResource DefaultTitleSize}"/>
+                <Setter Property="FontAttributes"
+                        Value="Bold"/>
+            </Style>
+
+            <Style x:Key="SubtitleSpanStyle" 
+                   TargetType="Span">
+                <Setter Property="TextColor"
+                        Value="{AppThemeBinding Light={StaticResource LightModeSubtitleColor},
+                                                Dark={StaticResource DarkModeSubtitleColor}}"/>
+                <Setter Property="FontSize"
+                        Value="{StaticResource SmallTextSize}"/>
+            </Style>
+            
+            <!-- Checkbox Style -->
+
+            <Style TargetType="CheckBox">
+                <Setter Property="Color"
+                        Value="{AppThemeBinding Light={StaticResource LightAccentColor},
+                                                Dark={StaticResource DarkAccentColor}}"/>
+            </Style>
+
+            <!-- Button Style -->
+            <Style TargetType="Button">
+                <Setter Property="TextColor" 
+                        Value="{AppThemeBinding Light={StaticResource LightModeTextColor},
+                                                Dark={StaticResource DarkModeTextColor}}"/>
+                <Setter Property="VisualStateManager.VisualStateGroups">
+                    <VisualStateGroupList>
+                        <VisualStateGroup x:Name="CommonStates">
+                            <VisualState x:Name="Normal">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor" 
+                                            Value="{AppThemeBinding Light={StaticResource LightModeBackgroundColor},
+                                                                    Dark={StaticResource DarkModeBackgroundColor}}" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Disabled">
+                                <VisualState.Setters>
+                                    <Setter Property="BackgroundColor"
+                                            Value="#332196F3" />
+                                </VisualState.Setters>
+                            </VisualState>
+                        </VisualStateGroup>
+                    </VisualStateGroupList>
+                </Setter>
+            </Style>
+
+            <!-- Page Style -->
+            <Style TargetType="Page"
+                   ApplyToDerivedTypes="True">
+                <Setter Property="BackgroundColor"
+                        Value="{AppThemeBinding Light={StaticResource LightModeBackgroundColor},
+                                                Dark={StaticResource DarkModeBackgroundColor}}"/>
+            </Style>
+            
+            <!-- 
+                <Setter Property="Background">
+                    <Setter.Value>
+                        <LinearGradientBrush StartPoint="0, 0"
+                                             EndPoint="0, 1">
+                            <GradientStop Color="{AppThemeBinding Light={StaticResource LightModeBackgroundColor},
+                                                                  Dark={StaticResource DarkModeBackgroundColor}}"
+                                          Offset="0.1"/>
+                            <GradientStop Color="{AppThemeBinding Light={StaticResource LightModeBackgroundAltColor},
+                                                                  Dark={StaticResource DarkModeBackgroundAltColor}}"
+                                          Offset="1.0"/>
+                        </LinearGradientBrush>
+                    </Setter.Value>
+                </Setter>
+            -->
+        </ResourceDictionary>        
+    </Application.Resources>
+</Application>

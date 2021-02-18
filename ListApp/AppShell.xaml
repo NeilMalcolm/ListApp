@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pages:BaseAppShell xmlns="http://xamarin.com/schemas/2014/forms" 
+       xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+       xmlns:pages="clr-namespace:ListApp.Pages"
+       Title="ListApp"
+       x:Class="ListApp.AppShell">
+    <TabBar>
+        <ShellContent Title="Home" 
+                      Route="Home" 
+                      ContentTemplate="{DataTemplate pages:ItemListPage}" 
+                      BindingContext="{Binding ListViewModel}"/>
+        <ShellContent Title="Second" 
+                      Route="Second" 
+                      ContentTemplate="{DataTemplate pages:ItemListPage}" 
+                      BindingContext="{Binding ListViewModel}"/>
+    </TabBar>
+</pages:BaseAppShell>

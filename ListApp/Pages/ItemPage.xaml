@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:ListApp.Pages"
+             xmlns:models="clr-namespace:ListApp.Models"
+             NavigationPage.HasNavigationBar="False"
+             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
+             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
+             x:Class="ListApp.Pages.ItemPage">
+    <ContentPage.Resources>
+        <Thickness x:Key="PageThickness">12.5, 20, 12.5, 0</Thickness>
+    </ContentPage.Resources>
+    <ContentPage.Content>
+        <StackLayout>
+            <CollectionView ItemsSource="{Binding Items}"
+                            ItemsUpdatingScrollMode="KeepLastItemInView"
+                            Margin="0, 0, 0, 0">
+                <CollectionView.Header>
+                    <StackLayout Padding="{StaticResource PageThickness}">
+                        <Button x:Name="CloseButton" 
+                                ImageSource="{AppThemeBinding Light=close_light.png,
+                                                              Dark=close_dark.png}"
+                                Command="{Binding PopModalCommand}"
+                                HorizontalOptions="End"
+                                WidthRequest="36"
+                                HeightRequest="36"
+                                Padding="0"/>
+                        <Entry Text="{Binding CurrentItemList.Title}"
+                           Placeholder="Title your list"
+                           Visual="Material"
+                           FontSize="Title"/>
+                        <Button Text="{Binding CurrentItemList.Tag}"
+                            FontSize="Subtitle"
+                            TextColor="White"
+                            HeightRequest="25"
+                            HorizontalOptions="Start"
+                            Padding="0"
+                            CornerRadius="13"/>
+                    </StackLayout>
+                </CollectionView.Header>
+                
+                <CollectionView.ItemTemplate>
+                    <DataTemplate x:DataType="{x:Type models:Item}">
+                        <StackLayout Orientation="Horizontal"
+                                    HorizontalOptions="FillAndExpand"
+                                    Padding="{StaticResource PageThickness}"
+                                    CompressedLayout.IsHeadless="True">
+                            <CheckBox IsChecked="{Binding Selected}"/>
+                            <Entry Text="{Binding Text}" 
+                                       FontSize="Body"
+                                       HorizontalOptions="FillAndExpand"/>
+                        </StackLayout>
+                    </DataTemplate>
+                </CollectionView.ItemTemplate>
+                <CollectionView.Footer>
+                    <StackLayout Orientation="Horizontal"
+                                 HorizontalOptions="Center"
+                                 Padding="12.5, 15, 12.5, 120">
+                        <StackLayout.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding AddItemCommand}"/>
+                        </StackLayout.GestureRecognizers>
+                        <Button x:Name="AddNewItemButton"
+                                ImageSource="add_light.png"
+                                BackgroundColor="White"
+                                WidthRequest="30"
+                                HeightRequest="30"
+                                Padding="0"
+                                CornerRadius="15"
+                                Command="{Binding AddItemCommand}">
+                        </Button>
+                    </StackLayout>
+                </CollectionView.Footer>
+            </CollectionView>
+        </StackLayout>
+    </ContentPage.Content>
+</pages:BasePage>
