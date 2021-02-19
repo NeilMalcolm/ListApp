@@ -55,20 +55,20 @@ steps:
   displayName: 'Dotnet Unit tests'
   inputs:
     command: 'test'
-    arguments: '–configuration $(BuildConfiguration) /p:CollectCoverage=true /p:CoverletOputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)\TestResults\Coverage\'
+    arguments: '--configuration $(BuildConfiguration) /p:CollectCoverage=true /p:CoverletOputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)\TestResults\Coverage\'
     publishTestResults: true
     projects: '**/ListApp.Test.csproj'
 
 - script: |
     reportgenerator -reports:$(Build.SourcesDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:HtmlInline_AzurePipelines
   displayName: 'Create code coverage report'
+  
 
 - task: PublishCodeCoverageResults@1
   inputs:
     codeCoverageTool: 'Cobertura'
     summaryFileLocation: '$(Build.SourcesDirectory)/**/coverage.cobertura.xml'
     reportDirectory: '$(Build.SourcesDirectory)/TestResults/Coverage'
-    failIfCoverageEmpty: true
 
 - task: PublishBuildArtifacts@1
   inputs:
