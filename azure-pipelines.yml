@@ -49,7 +49,7 @@ steps:
   inputs:
     command: 'test'
     projects: '**/ListApp.Test.csproj'
-    arguments: '–configuration $(BuildConfiguration) /p:CollectCoverage=true /p:CoverletOputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)\TestResults\Coverage\'
+    arguments: '/p:CollectCoverage=true /p:CoverletOputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)\TestResults\Coverage\'
     publishTestResults: true
 
 - task: PublishCodeCoverageResults@1
