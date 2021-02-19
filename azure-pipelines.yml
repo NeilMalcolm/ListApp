@@ -25,32 +25,43 @@ steps:
   inputs:
     packagesToPack: '**/*.csproj'
 
-- task: XamariniOS@2
-  inputs:
-    solutionFile: '**/*.sln'
-    configuration: 'Release'
-    clean: true
-    packageApp: false
-    buildForSimulator: true
-    runNugetRestore: false
-    args: '/property:langversion=8.0'
+# - task: XamariniOS@2
+#   inputs:
+#     solutionFile: '**/*.sln'
+#     configuration: 'Release'
+#     clean: true
+#     packageApp: false
+#     buildForSimulator: true
+#     runNugetRestore: false
+#     args: '/property:langversion=8.0'
 
-- task: XamarinAndroid@1
-  inputs:
-    projectFile: '**/*droid*.csproj'
-    outputDirectory: '$(outputDirectory)'
-    configuration: '$(buildConfiguration)'
-    clean: true
-    msbuildArguments: '/property:langversion=8.0'
-    jdkOption: 'JDKVersion'
+# - task: XamarinAndroid@1
+#   inputs:
+#     projectFile: '**/*droid*.csproj'
+#     outputDirectory: '$(outputDirectory)'
+#     configuration: '$(buildConfiguration)'
+#     clean: true
+#     msbuildArguments: '/property:langversion=8.0'
+#     jdkOption: 'JDKVersion'
 
 - task: DotNetCoreCLI@2
-  displayName: dotnet test
+  displayName: 'Install ReportGenerator'
+  inputs:
+    command: custom
+    custom: tool
+    arguments: 'install --global dotnet-reportgenerator-globaltool'
+
+- task: DotNetCoreCLI@2
+  displayName: 'Dotnet Unit tests'
   inputs:
     command: 'test'
-    projects: '**/ListApp.Test.csproj'
-    arguments: '/p:CollectCoverage=true /p:CoverletOputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)\TestResults\Coverage\'
+    arguments: '--no-build --configuration $(buildConfiguration) /p:CollectCoverage=true /p:CoverletOputFormat=cobertura /p:CoverletOutput=$(Build.SourcesDirectory)\TestResults\Coverage\'
     publishTestResults: true
+    projects: '**/ListApp.Test.csproj'
+
+- script: |
+    reportgenerator -reports:$(Build.SourcesDirectory)/**/coverage.cobertura.xml -targetdir:$(Build.SourcesDirectory)/CodeCoverage -reporttypes:HtmlInline_AzurePipelines
+  displayName: 'Create code coverage report'
 
 - task: PublishCodeCoverageResults@1
   displayName: 'Publish Code Coverage Results'
