@@ -25,24 +25,24 @@ steps:
   inputs:
     packagesToPack: '**/*.csproj'
 
-# - task: XamariniOS@2
-#   inputs:
-#     solutionFile: '**/*.sln'
-#     configuration: 'Release'
-#     clean: true
-#     packageApp: false
-#     buildForSimulator: true
-#     runNugetRestore: false
-#     args: '/property:langversion=8.0'
+- task: XamariniOS@2
+  inputs:
+    solutionFile: '**/*.sln'
+    configuration: 'Release'
+    clean: true
+    packageApp: false
+    buildForSimulator: true
+    runNugetRestore: false
+    args: '/property:langversion=8.0'
 
-# - task: XamarinAndroid@1
-#   inputs:
-#     projectFile: '**/*droid*.csproj'
-#     outputDirectory: '$(outputDirectory)'
-#     configuration: '$(buildConfiguration)'
-#     clean: true
-#     msbuildArguments: '/property:langversion=8.0'
-#     jdkOption: 'JDKVersion'
+- task: XamarinAndroid@1
+  inputs:
+    projectFile: '**/*droid*.csproj'
+    outputDirectory: '$(outputDirectory)'
+    configuration: '$(buildConfiguration)'
+    clean: true
+    msbuildArguments: '/property:langversion=8.0'
+    jdkOption: 'JDKVersion'
 
 - task: DotNetCoreCLI@2
   displayName: 'Install ReportGenerator'

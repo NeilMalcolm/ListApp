@@ -85,5 +85,25 @@ namespace ListApp.Test.UnitTests.Services
             DatabaseMock.Verify(m => m.CreateDatabase(It.Is<string>(s => s.EndsWith("data.db"))));
             DatabaseMock.Verify(m => m.CreateTable<BaseRecordableRecord>(), Times.Never);
         }
+
+        [TestMethod]
+        public async Task WhenDeleteAsyncIsCalled_ThenDatabaseDeleteIsCalled()
+        {
+            await databaseService.InitAsync();
+
+            var objectToDelete = new Item();
+            await databaseService.DeleteAsync<Item>(objectToDelete);
+
+            DatabaseMock.Verify(m => m.Delete<Item>(objectToDelete), Times.Once);
+        }
+
+        [TestMethod]
+        public async Task WhenFirstAsyncIsCalled_ThenDatabaseFirstIsCalled()
+        {
+            await databaseService.InitAsync();
+
+            await databaseService.FirstAsync<Item>();
+            DatabaseMock.Verify(m => m.First<Item>(), Times.Once);
+        }
     }
 }
