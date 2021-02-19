@@ -49,7 +49,7 @@ steps:
   inputs:
     command: 'test'
     projects: '**/ListApp.Test.csproj'
-    arguments: '/p:CollectCoverage=true /p:CoverletOutputFormat=cobertura /p:CoverletOutput=./MyCoverage/'
+    arguments: '--collect:"XPlat Code Coverage"'
     publishTestResults: true
 
 - task: PublishCodeCoverageResults@1
