@@ -17,6 +17,7 @@ steps:
 - script: sudo $AGENT_HOMEDIRECTORY/scripts/select-xamarin-sdk.sh 5_12_0
   displayName: 'Select the Xamarin SDK version'
   enabled: false
+  continueOnError: true
   
 - task: NuGetToolInstaller@1
 
@@ -28,14 +29,20 @@ steps:
   inputs:
     solutionFile: '**/*.sln'
     configuration: 'Release'
-    buildForSimulator: true
+    clean: true
     packageApp: false
+    buildForSimulator: true
+    runNugetRestore: false
+    args: '/property:langversion=8.0'
 
 - task: XamarinAndroid@1
   inputs:
     projectFile: '**/*droid*.csproj'
     outputDirectory: '$(outputDirectory)'
-    configuration: '$(buildConfiguration)'    
+    configuration: '$(buildConfiguration)'
+    clean: true
+    msbuildArguments: '/property:langversion=8.0'
+    jdkOption: 'JDKVersion'
 
 - task: DotNetCoreCLI@2
   inputs:
