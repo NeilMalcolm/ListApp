@@ -30,7 +30,7 @@ namespace ListApp
                     await _databaseService.InitAsync();
                 }
             );
-            RegisterViewModels();
+            RegisterViewModelAndPageRelationships();
             swInner.Stop();
 
             Debug.WriteLine($"Took {swInner.Elapsed.TotalSeconds} seconds to register dependencies");
@@ -61,7 +61,7 @@ namespace ListApp
             RegisterViewModelDependencies(ds);
         }
 
-        private void RegisterViewModels()
+        private void RegisterViewModelAndPageRelationships()
         {
             var _pageViewModelService = _dependencyService.Get<IPageViewModelService>();
             _pageViewModelService.RegisterPagesToViewModels(() =>
@@ -70,7 +70,8 @@ namespace ListApp
                 {
                     { typeof(AppShell), typeof(AppShellViewModel) },
                     { typeof(ItemListPage), typeof(ItemListViewModel) },
-                    { typeof(ItemPage), typeof(ItemViewModel) }
+                    { typeof(ItemPage), typeof(ItemViewModel) },
+                    { typeof(SettingsPage), typeof(SettingsViewModel) }
                 };
             });
         }
@@ -79,7 +80,8 @@ namespace ListApp
         {
             ds.Register<AppShellViewModel>(false)
             .Register<ItemListViewModel>(false)
-            .Register<ItemViewModel>(false);
+            .Register<ItemViewModel>(false)
+            .Register<SettingsViewModel>(false);
 
             return ds;
         }
