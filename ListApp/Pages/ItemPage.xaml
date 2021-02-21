@@ -1,33 +1,15 @@
-﻿<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+﻿<pages:BaseModalPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:ListApp.Pages"
              xmlns:models="clr-namespace:ListApp.Models"
-             NavigationPage.HasNavigationBar="False"
-             xmlns:android="clr-namespace:Xamarin.Forms.PlatformConfiguration.AndroidSpecific;assembly=Xamarin.Forms.Core"
-             xmlns:ios="clr-namespace:Xamarin.Forms.PlatformConfiguration.iOSSpecific;assembly=Xamarin.Forms.Core"
              x:Class="ListApp.Pages.ItemPage">
-    <ContentPage.Resources>
-        <Thickness x:Key="PageThickness">12.5, 20, 12.5, 0</Thickness>
-    </ContentPage.Resources>
     <ContentPage.Content>
         <StackLayout>
             <CollectionView ItemsSource="{Binding Items}"
                             ItemsUpdatingScrollMode="KeepLastItemInView"
                             Margin="0, 0, 0, 0">
                 <CollectionView.Header>
-                    <StackLayout Padding="{StaticResource PageThickness}">
-                        <Button x:Name="CloseButton" 
-                                ImageSource="{AppThemeBinding Light=close_light.png,
-                                                              Dark=close_dark.png}"
-                                Command="{Binding PopModalCommand}"
-                                HorizontalOptions="End"
-                                WidthRequest="36"
-                                HeightRequest="36"
-                                Padding="0"/>
-                        <Entry Text="{Binding CurrentItemList.Title}"
-                           Placeholder="Title your list"
-                           Visual="Material"
-                           FontSize="Title"/>
+                    <StackLayout>
                         <Button Text="{Binding CurrentItemList.Tag}"
                             FontSize="Subtitle"
                             TextColor="White"
@@ -72,4 +54,4 @@
             </CollectionView>
         </StackLayout>
     </ContentPage.Content>
-</pages:BasePage>
+</pages:BaseModalPage>

@@ -76,7 +76,8 @@ namespace ListApp
                     { typeof(AppShell), typeof(AppShellViewModel) },
                     { typeof(ItemListPage), typeof(ItemListViewModel) },
                     { typeof(ItemPage), typeof(ItemViewModel) },
-                    { typeof(SettingsPage), typeof(SettingsViewModel) }
+                    { typeof(SettingsPage), typeof(SettingsViewModel) },
+                    { typeof(AboutPage), typeof(AboutViewModel) }
                 };
             });
         }
@@ -86,7 +87,8 @@ namespace ListApp
             ds.Register<AppShellViewModel>(false)
             .Register<ItemListViewModel>(false)
             .Register<ItemViewModel>(false)
-            .Register<SettingsViewModel>(false);
+            .Register<SettingsViewModel>(false)
+            .Register<AboutViewModel>(false);
 
             return ds;
         }

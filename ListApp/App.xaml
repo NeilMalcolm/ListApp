@@ -18,6 +18,8 @@
             
             -->
 
+            <Thickness x:Key="PageThickness">12.5, 20, 12.5, 0</Thickness>
+
             <!-- Light Mode -->
             <Color x:Key="LightModeStatusBarColor">#F8F8F8</Color>
             <Color x:Key="LightModePrimaryColor">#F8F8F8</Color>
@@ -38,6 +40,7 @@
             <Color x:Key="LightModeTextColor">Black</Color>
             <Color x:Key="LightModeSubtitleColor">Gray</Color>
             <Color x:Key="LightModeUntitledTitleColor">Gray</Color>
+            <Color x:Key="LightModeLinkColor">#428bff</Color>
 
             <!-- Dark Mode -->
             <Color x:Key="DarkModeStatusBarColor">Black</Color>
@@ -59,6 +62,7 @@
             <Color x:Key="DarkModeTextColor">#D8D8D8</Color>
             <Color x:Key="DarkModeSubtitleColor">#959595</Color>
             <Color x:Key="DarkModeUntitledTitleColor">#959595</Color>
+            <Color x:Key="DarkModeLinkColor">#1e64d4</Color>
 
             <!-- 
             
@@ -130,6 +134,17 @@
                         Value="{StaticResource DefaultTitleSize}"/>
             </Style>
 
+            <Style x:Key="LinkLabelStyle" 
+                   TargetType="Label">
+                <Setter Property="TextColor"
+                        Value="{AppThemeBinding Light={StaticResource LightModeLinkColor},
+                                                Dark={StaticResource DarkModeLinkColor}}"/>
+                <Setter Property="FontSize"
+                        Value="{StaticResource DefaultTextSize}"/>
+                <Setter Property="TextDecorations"
+                        Value="Underline"/>
+            </Style>
+            
 
             <!-- Span Style-->
 
@@ -159,7 +174,7 @@
                 <Setter Property="FontSize"
                         Value="{StaticResource SmallTextSize}"/>
             </Style>
-            
+
             <!-- Checkbox Style -->
 
             <Style TargetType="CheckBox">
@@ -201,22 +216,36 @@
                         Value="{AppThemeBinding Light={StaticResource LightModeBackgroundColor},
                                                 Dark={StaticResource DarkModeBackgroundColor}}"/>
             </Style>
+
+            <ControlTemplate x:Key="ModalControlTemplate">
+                <StackLayout CompressedLayout.IsHeadless="true">
+                    <StackLayout Padding="{StaticResource PageThickness}">
+                        <Button x:Name="CloseButton" 
+                                ImageSource="{AppThemeBinding Light=close_light.png,
+                                                              Dark=close_dark.png}"
+                                Command="{TemplateBinding Parent.BindingContext.PopModalCommand}"
+                                HorizontalOptions="End"
+                                WidthRequest="36"
+                                HeightRequest="36"
+                                Padding="0"/>
+                        <Entry Text="{TemplateBinding Parent.BindingContext.Title}"
+                           Placeholder="Title your list"
+                           Visual="Material"
+                           IsReadOnly="{TemplateBinding Parent.BindingContext.IsTitleReadOnly}"
+                           FontSize="Title"/>
+                    </StackLayout>
+                    <ContentPresenter/>
+                </StackLayout>
+            </ControlTemplate>
             
-            <!-- 
-                <Setter Property="Background">
-                    <Setter.Value>
-                        <LinearGradientBrush StartPoint="0, 0"
-                                             EndPoint="0, 1">
-                            <GradientStop Color="{AppThemeBinding Light={StaticResource LightModeBackgroundColor},
-                                                                  Dark={StaticResource DarkModeBackgroundColor}}"
-                                          Offset="0.1"/>
-                            <GradientStop Color="{AppThemeBinding Light={StaticResource LightModeBackgroundAltColor},
-                                                                  Dark={StaticResource DarkModeBackgroundAltColor}}"
-                                          Offset="1.0"/>
-                        </LinearGradientBrush>
-                    </Setter.Value>
-                </Setter>
-            -->
+            <!-- RadioButton style -->
+
+            <Style TargetType="RadioButton">
+                <Setter Property="TextColor"
+                        Value="{AppThemeBinding Light={StaticResource LightModeTextColor},
+                                                Dark={StaticResource DarkModeTextColor}}"/>
+            </Style>
+            
         </ResourceDictionary>        
     </Application.Resources>
 </Application>

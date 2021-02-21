@@ -1,0 +1,34 @@
+﻿<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:pages="clr-namespace:ListApp.Pages"
+             NavigationPage.HasNavigationBar="False"
+             ControlTemplate="{StaticResource ModalControlTemplate}"
+             x:Name="ThisPage"
+             x:Class="ListApp.Pages.BaseModalPage">
+    <ContentPage.ControlTemplate>
+        <ControlTemplate>
+            <StackLayout CompressedLayout.IsHeadless="true">
+                <StackLayout Orientation="Horizontal"
+                             Padding="{StaticResource PageThickness}">
+                    <Entry Text="{Binding Source={x:Reference ThisPage}, 
+                                                  Path=BindingContext.Title}"
+                           IsReadOnly="{Binding Source={x:Reference ThisPage}, 
+                                                Path=BindingContext.IsTitleReadOnly}"
+                           Placeholder="Title your list"
+                           Visual="Material"
+                           FontSize="Title"/>
+                    <Button x:Name="CloseButton" 
+                            ImageSource="{AppThemeBinding Light=close_light.png,
+                                                            Dark=close_dark.png}"
+                            Command="{Binding Source={x:Reference ThisPage}, 
+                                                Path=BindingContext.PopModalCommand}"
+                            HorizontalOptions="EndAndExpand"
+                            WidthRequest="36"
+                            HeightRequest="36"
+                            Padding="0"/>
+                </StackLayout>
+                <ContentPresenter/>
+            </StackLayout>
+        </ControlTemplate>
+    </ContentPage.ControlTemplate>
+</pages:BasePage>

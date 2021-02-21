@@ -10,9 +10,8 @@ using Xamarin.Forms;
 
 namespace ListApp.ViewModels
 {
-    public class ItemViewModel : BaseViewModel
+    public class ItemViewModel : BaseModalViewModel
     {
-        private bool modalPopInProgress = false;
         private bool addInProgress = false;
 
         private readonly IDatabaseService _databaseService;
@@ -42,17 +41,20 @@ namespace ListApp.ViewModels
             }
         }
 
+        public new string Title
+        {
+            get => CurrentItemList?.Title ?? string.Empty;
+        }
+
         public ICommand AddItemCommand { get; set; }
-        public ICommand PopModalCommand { get; set;}
 
         public ItemViewModel(INavigationService navigationService,
             IDatabaseService databaseService)
             : base (navigationService)
         {
             _databaseService = databaseService;
-
+            IsTitleReadOnly = false;
             AddItemCommand = new Command(async () => await AddNewItemToItemList(), () => !addInProgress);
-            PopModalCommand = new Command(async () => await PopModal(),  () => !modalPopInProgress);
         }
 
         public override void Init(object parameter)
@@ -102,6 +104,7 @@ namespace ListApp.ViewModels
         private void OnCurrentItemListChanged()
         {
             SetItemsFromItemList();
+            OnPropertyChanged(nameof(Title));
         }
 
         private void SetItemsFromItemList()
@@ -124,27 +127,6 @@ namespace ListApp.ViewModels
             }
         }
 
-        public async Task PopModal()
-        {
-            modalPopInProgress = true;
-
-            try
-            {
-                // ensure we only save if the 
-                // title has been set (and previously was not)
-                // or we have items in the list
-                if (RunValidation())
-                {
-                    await UpdateList();
-                }
-                await NavigationService.PopModalAsync();
-            }
-            finally
-            {
-                modalPopInProgress = false;
-            }
-        }
-
         private async Task UpdateList()
         {
             CurrentItemList.Items = Items.ToList();
@@ -156,6 +138,17 @@ namespace ListApp.ViewModels
             else
             {
                 await _databaseService.UpdateAsync(CurrentItemList);
+            }
+        }
+
+        protected override async Task OnPopModal()
+        {
+            // ensure we only save if the 
+            // title has been set (and previously was not)
+            // or we have items in the list
+            if (RunValidation())
+            {
+                await UpdateList();
             }
         }
     }

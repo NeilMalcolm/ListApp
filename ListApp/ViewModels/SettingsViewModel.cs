@@ -1,5 +1,6 @@
 ﻿using ListApp.Constants;
 using ListApp.Models.Settings;
+using ListApp.Pages;
 using ListApp.Services;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -115,11 +116,9 @@ namespace ListApp.ViewModels
 
         #endregion
 
-        private Task GoToAboutPage()
+        private async Task GoToAboutPage()
         {
-            // TODO:
-            //NavigationService.PushModalAsync<AboutPage>();
-            return Task.CompletedTask;
+            await NavigationService.PushModalAsync<AboutPage>();
         }
     }
 }

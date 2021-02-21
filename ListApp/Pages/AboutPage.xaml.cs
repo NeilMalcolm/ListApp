@@ -1,14 +1,14 @@
-﻿using Xamarin.Forms.Xaml;
+﻿using Xamarin.Forms;
+using Xamarin.Forms.Xaml;
 
 namespace ListApp.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ItemPage : BaseModalPage
+    public partial class AboutPage : BaseModalPage
     {
-        public ItemPage()
+        public AboutPage()
         {
             InitializeComponent();
         }
-
     }
 }
