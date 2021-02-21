@@ -1,0 +1,13 @@
+﻿<DataTemplate xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ListApp.Views.DataTemplates.SettingActionDataTemplate"
+             xmlns:settings="clr-namespace:ListApp.Models.Settings"
+             x:DataType="settings:ActionSetting">
+    <StackLayout>
+        <StackLayout.GestureRecognizers>
+            <TapGestureRecognizer Command="{Binding OnActionCommand}"/>
+        </StackLayout.GestureRecognizers>
+        <Label Text="{Binding Title}" 
+               Style="{StaticResource TitleLabelStyle}"/>
+    </StackLayout>
+</DataTemplate>

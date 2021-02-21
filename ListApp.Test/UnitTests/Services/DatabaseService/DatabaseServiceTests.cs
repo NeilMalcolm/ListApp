@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace ListApp.Test.UnitTests.Services
 {
     [TestClass]
-    public class DatabaseServiceTests
+    public class DatabaseServiceTests : BaseServiceTests
     {
         Mock<IAppPreferences> AppPreferencesMock;
         Mock<IDatabase> DatabaseMock;
@@ -15,14 +15,14 @@ namespace ListApp.Test.UnitTests.Services
 
         DatabaseService databaseService;
 
-        [TestInitialize]
-        public void SetUp()
+        protected override void CreateMocks()
         {
-            CreateMocks();
-            SetUpMocks();
+            AppPreferencesMock = new Mock<IAppPreferences>();
+            DatabaseMock = new Mock<IDatabase>();
+            LogMock = new Mock<ILog>();
         }
 
-        void SetUpMocks()
+        protected override void SetUpMocks()
         {
             AppPreferencesMock.SetupProperty(m => m.HasDatabaseBeenInitialized);
 
@@ -33,14 +33,6 @@ namespace ListApp.Test.UnitTests.Services
                 LogMock.Object
             );
         }
-
-        void CreateMocks()
-        {
-            AppPreferencesMock = new Mock<IAppPreferences>();
-            DatabaseMock = new Mock<IDatabase>();
-            LogMock = new Mock<ILog>();
-        }
-
 
         [TestMethod]
         public async Task WhenRecordIsWrittenToDbForFirstTime_ThenDateCreatedIsSet()

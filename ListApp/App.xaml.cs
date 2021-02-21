@@ -13,7 +13,7 @@ namespace ListApp
     public partial class App : Application
     {
         readonly IDependencyService _dependencyService;
-        IDatabaseService _databaseService;
+        readonly IDatabaseService _databaseService;
         readonly INavigationService _navigationService;
 
         public App(IDependencyService dependencyService, Stopwatch sw)
@@ -30,11 +30,14 @@ namespace ListApp
                     await _databaseService.InitAsync();
                 }
             );
-            RegisterViewModels();
+            RegisterViewModelAndPageRelationships();
             swInner.Stop();
 
             Debug.WriteLine($"Took {swInner.Elapsed.TotalSeconds} seconds to register dependencies");
             InitializeComponent();
+
+            var themeService = _dependencyService.Get<IThemeService>();
+            themeService.SetInitialTheme();
 
             _navigationService = _dependencyService.Get<INavigationService>();
             _navigationService.SetHomePage<AppShell>();
@@ -56,12 +59,14 @@ namespace ListApp
             .Register<IDatabaseService, DatabaseService>(true)
             .Register<IUserLogic, UserLogic>(true)
             .Register<IItemListLogic, ItemListLogic>(true)
+            .Register<IPlatformThemeService, XamarinFormsThemeService>(true)
+            .Register<IThemeService, ThemeService>(false)
             .RegisterNativeDependencies();
 
             RegisterViewModelDependencies(ds);
         }
 
-        private void RegisterViewModels()
+        private void RegisterViewModelAndPageRelationships()
         {
             var _pageViewModelService = _dependencyService.Get<IPageViewModelService>();
             _pageViewModelService.RegisterPagesToViewModels(() =>
@@ -70,7 +75,8 @@ namespace ListApp
                 {
                     { typeof(AppShell), typeof(AppShellViewModel) },
                     { typeof(ItemListPage), typeof(ItemListViewModel) },
-                    { typeof(ItemPage), typeof(ItemViewModel) }
+                    { typeof(ItemPage), typeof(ItemViewModel) },
+                    { typeof(SettingsPage), typeof(SettingsViewModel) }
                 };
             });
         }
@@ -79,7 +85,8 @@ namespace ListApp
         {
             ds.Register<AppShellViewModel>(false)
             .Register<ItemListViewModel>(false)
-            .Register<ItemViewModel>(false);
+            .Register<ItemViewModel>(false)
+            .Register<SettingsViewModel>(false);
 
             return ds;
         }
