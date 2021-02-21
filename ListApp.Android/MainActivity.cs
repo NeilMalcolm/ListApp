@@ -17,6 +17,8 @@ namespace ListApp.Droid
         | ConfigChanges.SmallestScreenSize )]
     public class MainActivity : global::Xamarin.Forms.Platform.Android.FormsAppCompatActivity
     {
+        IDependencyService dependencyService;
+
         protected override void OnCreate(Bundle savedInstanceState)
         {
             TabLayoutResource = Resource.Layout.Tabbar;
@@ -25,10 +27,14 @@ namespace ListApp.Droid
 
             base.OnCreate(savedInstanceState);
 
-            global::Xamarin.Forms.Forms.SetFlags("Brush_Experimental");
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+
+            Xamarin.Forms.Forms.SetFlags("Brush_Experimental");
+            Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
+            Xamarin.Forms.Forms.SetFlags("RadioButton_Experimental");
+
             global::Xamarin.Forms.Forms.Init(this, savedInstanceState);
-            IDependencyService dependencyService = Xamarin.Forms.DependencyService.Get<IDependencyService>();
+            dependencyService = Xamarin.Forms.DependencyService.Get<IDependencyService>();
             var sw = new Stopwatch();
             sw.Start();
             LoadApplication(new App(dependencyService, sw));

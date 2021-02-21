@@ -9,9 +9,9 @@
                       Route="Home" 
                       ContentTemplate="{DataTemplate pages:ItemListPage}" 
                       BindingContext="{Binding ListViewModel}"/>
-        <ShellContent Title="Second" 
-                      Route="Second" 
-                      ContentTemplate="{DataTemplate pages:ItemListPage}" 
-                      BindingContext="{Binding ListViewModel}"/>
+        <ShellContent Title="Settings" 
+                      Route="Settings" 
+                      ContentTemplate="{DataTemplate pages:SettingsPage}" 
+                      BindingContext="{Binding SettingsViewModel}"/>
     </TabBar>
 </pages:BaseAppShell>

@@ -12,7 +12,6 @@ namespace ListApp.Test.UnitTests.Services
     [TestClass]
     public class ManualPageViewModelServiceTests : BasePageViewModelServiceTests
     {
-        private TestPage testPage;
         private TestViewModel testViewModel;
         private Mock<INavigationService> NavigationServiceMock;
         private Mock<IDependencyService> DependencyServiceMock;
@@ -38,7 +37,6 @@ namespace ListApp.Test.UnitTests.Services
             DependencyServiceMock.Setup(m => m.Get(typeof(TestViewModel)))
                 .Returns(() => testViewModel);
 
-            testPage = new TestPage();
             testViewModel = new TestViewModel(NavigationServiceMock.Object);
         }
 

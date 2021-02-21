@@ -6,28 +6,17 @@ using System.Collections.Generic;
 namespace ListApp.Test.UnitTests.Services
 {
     [TestClass]
-    public abstract class BasePageViewModelServiceTests
+    public abstract class BasePageViewModelServiceTests : BaseServiceTests
     {
         protected IPageViewModelService PageViewModelService;
 
         protected abstract Dictionary<Type, Type> PageViewModelDictionary { get; }
 
         [TestInitialize]
-        public void BeforeEachTest()
+        public override void BeforeEachTest()
         {
-            CreateMocks();
-            SetUpMocks();
+            base.BeforeEachTest();
             PageViewModelService = CreatePageViewModelService();
-        }
-
-        protected virtual void CreateMocks()
-        {
-
-        }
-
-        protected virtual void SetUpMocks()
-        {
-
         }
 
         [TestCleanup]
@@ -35,7 +24,6 @@ namespace ListApp.Test.UnitTests.Services
         {
             CreatePageViewModelService();
         }
-
 
         protected virtual void RegisterPageViewModelDictionary()
         {

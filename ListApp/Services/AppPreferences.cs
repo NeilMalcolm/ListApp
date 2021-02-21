@@ -18,5 +18,11 @@ namespace ListApp.Services
             get => _preferenceService.Get(PreferenceConstants.HasDatabaseBeenInitialized, false);
             set => _preferenceService.Set(PreferenceConstants.HasDatabaseBeenInitialized, value);
         }
+
+        public string UserPreferredAppTheme
+        {
+            get => _preferenceService.Get(PreferenceConstants.UserPreferredAppTheme, SettingsConstants.Themes.ThemeSystem);
+            set => _preferenceService.Set(PreferenceConstants.UserPreferredAppTheme, value);
+        }
     }
 }

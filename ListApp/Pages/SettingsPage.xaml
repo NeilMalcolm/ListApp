@@ -1,12 +1,28 @@
 ﻿<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:ListApp.Pages"
-             x:Class="ListApp.Pages.SettingsPage">
+             xmlns:views="clr-namespace:ListApp.Views"
+             x:Class="ListApp.Pages.SettingsPage"
+             xmlns:selector="clr-namespace:ListApp.DataTemplateSelectors"
+             NavigationPage.HasBackButton="True">
+    <Shell.TitleView>
+        <views:DefaultNavigationTitleView BindingContext="{Binding .}"/>
+    </Shell.TitleView>
+
+    <ContentPage.Resources>
+        <selector:SettingTemplateSelector x:Key="SettingDataTemplateSelector"/>
+    </ContentPage.Resources>
+    
     <ContentPage.Content>
-        <StackLayout>
-            <Label Text="Welcome to Xamarin.Forms!"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
-        </StackLayout>
+        <CollectionView ItemsSource="{Binding AllSettingGroups}"
+                        IsGrouped="true"
+                        ItemTemplate="{StaticResource SettingDataTemplateSelector}">
+            <CollectionView.GroupHeaderTemplate>
+                <DataTemplate>
+                    <Label Text="{Binding Title}"
+                           Style="{StaticResource TitleLabelStyle}"/>
+                </DataTemplate>
+            </CollectionView.GroupHeaderTemplate>
+        </CollectionView>
     </ContentPage.Content>
 </pages:BasePage>

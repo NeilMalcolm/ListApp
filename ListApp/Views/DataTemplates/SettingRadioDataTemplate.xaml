@@ -1,0 +1,23 @@
+﻿<DataTemplate xmlns="http://xamarin.com/schemas/2014/forms" 
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="ListApp.Views.DataTemplates.SettingRadioDataTemplate">
+    <StackLayout>
+        <Label Text="{Binding Title}"
+               Style="{StaticResource TitleLabelStyle}"/>
+        <StackLayout x:Name="RadioParent"
+                 Orientation="Horizontal"
+                 BindableLayout.ItemsSource="{Binding Options}"
+                 RadioButtonGroup.GroupName="{Binding Title}"
+                 RadioButtonGroup.SelectedValue="{Binding SelectedOption}"
+                 Spacing="10"
+                 CompressedLayout.IsHeadless="True">
+            <BindableLayout.ItemTemplate>
+                <DataTemplate>
+                    <RadioButton Content="{Binding Title}"
+                                 Value="{Binding Title}"
+                                 IsChecked="{Binding IsChecked}"/>
+                </DataTemplate>
+            </BindableLayout.ItemTemplate>
+        </StackLayout>
+    </StackLayout>
+</DataTemplate>

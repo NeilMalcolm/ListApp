@@ -22,6 +22,20 @@ namespace ListApp.ViewModels
             }
         }
 
+        BaseViewModel settingsViewModel;
+        public BaseViewModel SettingsViewModel
+        {
+            get => settingsViewModel;
+            set
+            {
+                if (value != settingsViewModel)
+                {
+                    settingsViewModel = value;
+                    OnPropertyChanged();
+                }
+            }
+        }
+
         public AppShellViewModel
         (
             IPageViewModelService pageViewModelService,
@@ -34,6 +48,7 @@ namespace ListApp.ViewModels
         public override Task LoadData()
         {
             ListViewModel = _pageViewModelService.GetViewModelForPage<ItemListPage>();
+            SettingsViewModel = _pageViewModelService.GetViewModelForPage<SettingsPage>();
 
             return Task.CompletedTask;
         }

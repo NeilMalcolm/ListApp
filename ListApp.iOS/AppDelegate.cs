@@ -15,6 +15,7 @@ namespace ListApp.iOS
     [Register("AppDelegate")]
     public partial class AppDelegate : global::Xamarin.Forms.Platform.iOS.FormsApplicationDelegate
     {
+        IDependencyService dependencyService;
         //
         // This method is invoked when the application has loaded and is ready to run. In this 
         // method you should instantiate the window, load the UI into it and then make the window
@@ -26,8 +27,9 @@ namespace ListApp.iOS
         {
             global::Xamarin.Forms.Forms.SetFlags("Brush_Experimental");
             global::Xamarin.Forms.Forms.SetFlags("CollectionView_Experimental");
+            global::Xamarin.Forms.Forms.SetFlags("RadioButton_Experimental");
             global::Xamarin.Forms.Forms.Init();
-            IDependencyService dependencyService = Xamarin.Forms.DependencyService.Get<IDependencyService>();
+            dependencyService = Xamarin.Forms.DependencyService.Get<IDependencyService>();
             var sw = new Stopwatch();
             sw.Start();
             LoadApplication(new App(dependencyService, sw));

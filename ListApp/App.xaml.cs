@@ -13,7 +13,7 @@ namespace ListApp
     public partial class App : Application
     {
         readonly IDependencyService _dependencyService;
-        IDatabaseService _databaseService;
+        readonly IDatabaseService _databaseService;
         readonly INavigationService _navigationService;
 
         public App(IDependencyService dependencyService, Stopwatch sw)
@@ -36,6 +36,9 @@ namespace ListApp
             Debug.WriteLine($"Took {swInner.Elapsed.TotalSeconds} seconds to register dependencies");
             InitializeComponent();
 
+            var themeService = _dependencyService.Get<IThemeService>();
+            themeService.SetInitialTheme();
+
             _navigationService = _dependencyService.Get<INavigationService>();
             _navigationService.SetHomePage<AppShell>();
             sw.Stop();
@@ -56,6 +59,8 @@ namespace ListApp
             .Register<IDatabaseService, DatabaseService>(true)
             .Register<IUserLogic, UserLogic>(true)
             .Register<IItemListLogic, ItemListLogic>(true)
+            .Register<IPlatformThemeService, XamarinFormsThemeService>(true)
+            .Register<IThemeService, ThemeService>(false)
             .RegisterNativeDependencies();
 
             RegisterViewModelDependencies(ds);
