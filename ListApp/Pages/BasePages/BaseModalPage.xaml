@@ -2,31 +2,29 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:ListApp.Pages"
              NavigationPage.HasNavigationBar="False"
-             ControlTemplate="{StaticResource ModalControlTemplate}"
              x:Name="ThisPage"
              x:Class="ListApp.Pages.BaseModalPage">
     <ContentPage.ControlTemplate>
         <ControlTemplate>
             <StackLayout CompressedLayout.IsHeadless="true">
-                <StackLayout Orientation="Horizontal"
-                             Padding="{StaticResource PageThickness}">
-                    <Entry Text="{Binding Source={x:Reference ThisPage}, 
+                <Grid Padding="{StaticResource PageThickness}">
+                    <Label Text="{Binding Source={x:Reference ThisPage}, 
                                                   Path=BindingContext.Title}"
-                           IsReadOnly="{Binding Source={x:Reference ThisPage}, 
-                                                Path=BindingContext.IsTitleReadOnly}"
-                           Placeholder="Title your list"
-                           Visual="Material"
-                           FontSize="Title"/>
+                           Style="{StaticResource HeaderEntryStyle}"
+                           HorizontalTextAlignment="Center"
+                           HorizontalOptions="Center"
+                           VerticalOptions="CenterAndExpand"/>
                     <Button x:Name="CloseButton" 
                             ImageSource="{AppThemeBinding Light=close_light.png,
                                                             Dark=close_dark.png}"
                             Command="{Binding Source={x:Reference ThisPage}, 
-                                                Path=BindingContext.PopModalCommand}"
-                            HorizontalOptions="EndAndExpand"
+                                                Path=BindingContext.BackCommand}"
+                            HorizontalOptions="End"
                             WidthRequest="36"
                             HeightRequest="36"
+                            VerticalOptions="CenterAndExpand"
                             Padding="0"/>
-                </StackLayout>
+                </Grid>
                 <ContentPresenter/>
             </StackLayout>
         </ControlTemplate>

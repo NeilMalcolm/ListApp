@@ -54,7 +54,6 @@ namespace ListApp.Services
         public void SetHomePage<T>() where T : Page
         {
             App.Current.MainPage = GetInstanceOfPageWithViewModel<T>(null);
-
         }
 
         #region Private Methods

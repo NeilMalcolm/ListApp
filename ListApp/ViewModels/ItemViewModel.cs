@@ -10,7 +10,7 @@ using Xamarin.Forms;
 
 namespace ListApp.ViewModels
 {
-    public class ItemViewModel : BaseModalViewModel
+    public class ItemViewModel : BaseViewModel
     {
         private bool addInProgress = false;
 
@@ -44,6 +44,13 @@ namespace ListApp.ViewModels
         public new string Title
         {
             get => CurrentItemList?.Title ?? string.Empty;
+            set 
+            {
+                if (CurrentItemList != null)
+                {
+                    CurrentItemList.Title = value;
+                }
+            }
         }
 
         public ICommand AddItemCommand { get; set; }
@@ -53,7 +60,6 @@ namespace ListApp.ViewModels
             : base (navigationService)
         {
             _databaseService = databaseService;
-            IsTitleReadOnly = false;
             AddItemCommand = new Command(async () => await AddNewItemToItemList(), () => !addInProgress);
         }
 
@@ -95,10 +101,10 @@ namespace ListApp.ViewModels
 
         public override bool RunValidation()
         {
-            return CurrentItemList != null 
-                && (CurrentItemList.DateCreated !=  null
-                || !string.IsNullOrWhiteSpace(CurrentItemList.Title)
-                || CurrentItemList.Items?.Count > 0);
+            return CurrentItemList != null
+                   && (CurrentItemList.DateCreated != null
+                   || !string.IsNullOrWhiteSpace(CurrentItemList.Title)
+                   || CurrentItemList.Items?.Count > 0);
         }
 
         private void OnCurrentItemListChanged()
@@ -141,15 +147,18 @@ namespace ListApp.ViewModels
             }
         }
 
-        protected override async Task OnPopModal()
+        protected override async Task<bool> BeforePopAsync()
         {
             // ensure we only save if the 
             // title has been set (and previously was not)
             // or we have items in the list
-            if (RunValidation())
+            var requiresSave = RunValidation();
+            if (requiresSave)
             {
                 await UpdateList();
             }
+
+            return true;
         }
     }
 }

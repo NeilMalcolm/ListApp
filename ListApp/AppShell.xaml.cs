@@ -1,6 +1,4 @@
-﻿using Xamarin.Forms;
-
-namespace ListApp
+﻿namespace ListApp
 {
     public partial class AppShell : Pages.BaseAppShell
     {

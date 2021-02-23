@@ -17,18 +17,6 @@ namespace ListApp.Test.UnitTests.ViewModels
 
         public ItemList BlankItemList = new ItemList();
 
-        public static IEnumerable<object[]> ValidItemlists
-        {
-            get
-            {
-                yield return new ItemList[]{
-                    new ItemList { DateCreated = new DateTime(2021, 01, 01) },
-                    new ItemList { Title = "This is an example title" },
-                    new ItemList { Items = new List<Item> { new Item { Text = "First item." } } }
-                };
-            }
-        }
-
         public override void CreateMocks()
         {
             base.CreateMocks();

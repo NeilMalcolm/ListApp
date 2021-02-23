@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
+﻿using System.Diagnostics;
 
 using Foundation;
 using ListApp.Services;
@@ -33,6 +30,8 @@ namespace ListApp.iOS
             var sw = new Stopwatch();
             sw.Start();
             LoadApplication(new App(dependencyService, sw));
+            var themeService = dependencyService.Get<IThemeService>();
+            themeService.SetInitialTheme();
 
             return base.FinishedLaunching(app, options);
         }

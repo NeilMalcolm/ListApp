@@ -17,18 +17,6 @@ namespace ListApp.Pages
         protected override void OnApplyTemplate()
         {
             base.OnApplyTemplate();
-
-            closeButton = (Button)GetTemplateChild("CloseButton");
         }
-        protected override bool OnBackButtonPressed()
-        {
-            if (closeButton?.Command != null)
-            {
-                closeButton.Command.Execute(null);
-            }
-
-            return true;
-        }
-
     }
 }

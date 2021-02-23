@@ -217,30 +217,21 @@
                                                 Dark={StaticResource DarkModeBackgroundColor}}"/>
             </Style>
 
-            <ControlTemplate x:Key="ModalControlTemplate">
-                <StackLayout CompressedLayout.IsHeadless="true">
-                    <StackLayout Padding="{StaticResource PageThickness}">
-                        <Button x:Name="CloseButton" 
-                                ImageSource="{AppThemeBinding Light=close_light.png,
-                                                              Dark=close_dark.png}"
-                                Command="{TemplateBinding Parent.BindingContext.PopModalCommand}"
-                                HorizontalOptions="End"
-                                WidthRequest="36"
-                                HeightRequest="36"
-                                Padding="0"/>
-                        <Entry Text="{TemplateBinding Parent.BindingContext.Title}"
-                           Placeholder="Title your list"
-                           Visual="Material"
-                           IsReadOnly="{TemplateBinding Parent.BindingContext.IsTitleReadOnly}"
-                           FontSize="Title"/>
-                    </StackLayout>
-                    <ContentPresenter/>
-                </StackLayout>
-            </ControlTemplate>
-            
             <!-- RadioButton style -->
 
             <Style TargetType="RadioButton">
+                <Setter Property="TextColor"
+                        Value="{AppThemeBinding Light={StaticResource LightModeTextColor},
+                                                Dark={StaticResource DarkModeTextColor}}"/>
+            </Style>
+            
+            <!-- Entry Style-->
+            <Style TargetType="Entry"
+                   x:Key="HeaderEntryStyle">
+                <Setter Property="FontSize"
+                        Value="{StaticResource DefaultTitleSize}"/>
+                <Setter Property="FontAttributes"
+                        Value="Bold"/>
                 <Setter Property="TextColor"
                         Value="{AppThemeBinding Light={StaticResource LightModeTextColor},
                                                 Dark={StaticResource DarkModeTextColor}}"/>

@@ -1,8 +1,20 @@
-﻿<pages:BaseModalPage xmlns="http://xamarin.com/schemas/2014/forms"
+﻿<pages:BasePage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:pages="clr-namespace:ListApp.Pages"
              xmlns:models="clr-namespace:ListApp.Models"
              x:Class="ListApp.Pages.ItemPage">
+    <Shell.TitleView>
+        <Entry Text="{Binding Title}"
+               Style="{StaticResource HeaderEntryStyle}"
+               Placeholder="Title your list"
+               PlaceholderColor="{AppThemeBinding Light={StaticResource LightModeSubtitleColor},
+                                                  Dark={StaticResource DarkModeSubtitleColor}}"
+               HorizontalTextAlignment="Center"
+               HorizontalOptions="Center"/>
+    </Shell.TitleView>
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior TextOverride="Lists"/>
+    </Shell.BackButtonBehavior>
     <ContentPage.Content>
         <StackLayout>
             <CollectionView ItemsSource="{Binding Items}"
@@ -54,4 +66,4 @@
             </CollectionView>
         </StackLayout>
     </ContentPage.Content>
-</pages:BaseModalPage>
+</pages:BasePage>

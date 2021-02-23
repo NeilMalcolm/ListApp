@@ -3,12 +3,11 @@
 namespace ListApp.Pages
 {
     [XamlCompilation(XamlCompilationOptions.Compile)]
-    public partial class ItemPage : BaseModalPage
+    public partial class ItemPage : BasePage
     {
         public ItemPage()
         {
             InitializeComponent();
         }
-
     }
 }

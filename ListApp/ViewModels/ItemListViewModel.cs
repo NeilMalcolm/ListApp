@@ -44,13 +44,13 @@ namespace ListApp.ViewModels
         {
             GoToAddItemCommand = new Command
             (
-                async () => await GoToModal<ItemPage>(),
+                async () => await GoTo<ItemPage>(),
                 () => !isNavigating
             );
 
             GoToListCommand = new Command<ItemList>
             (
-                async (item) => await GoToModal<ItemPage>(item),
+                async (item) => await GoTo<ItemPage>(item),
                 (item) => !isNavigating
             );
         }
@@ -68,7 +68,7 @@ namespace ListApp.ViewModels
             }
         }
 
-        private async Task GoToModal<T>(object param = null) where T : Page
+        private async Task GoTo<T>(object param = null) where T : Page
         {
             try
             {
@@ -78,14 +78,7 @@ namespace ListApp.ViewModels
                 }
 
                 isNavigating = true;
-                if (param is null)
-                {
-                    await NavigationService.PushModalAsync<T>();
-                }
-                else
-                {
-                    await NavigationService.PushModalAsync<T>(param);
-                }
+                await NavigationService.PushPageAsync<T>(param);
             }
             finally
             {
